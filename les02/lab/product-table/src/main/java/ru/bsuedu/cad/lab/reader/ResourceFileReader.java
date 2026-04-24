@@ -9,7 +9,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class ResourceFileReader {
 
     public List<String> readLines(String filePath) throws Exception {

@@ -8,7 +8,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class CSVParser {
     public List<Product> parse(List<String> lines) {
         List<Product> products = new ArrayList<>();

@@ -5,7 +5,6 @@ import ru.bsuedu.cad.lab.model.Product;
 
 import java.util.List;
 
-@Component
 public class ConsoleTableRenderer {
     public void render(List<Product> products) {
         System.out.println(

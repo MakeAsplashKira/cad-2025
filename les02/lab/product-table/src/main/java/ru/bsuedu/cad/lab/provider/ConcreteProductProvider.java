@@ -7,7 +7,6 @@ import ru.bsuedu.cad.lab.reader.ResourceFileReader;
 
 import java.util.List;
 
-@Component
 public class ConcreteProductProvider {
     private final ResourceFileReader reader;
     private final CSVParser parser;
