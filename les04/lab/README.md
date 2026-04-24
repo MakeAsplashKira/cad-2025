@@ -192,6 +192,81 @@ public class ZamerAspect {
     }
 }
 ```
+#### Обновленная UML диаграмма. 
+```mermaid
+
+classDiagram
+    note "Товары для зоомагазина"
+    Reader <|.. ResourceFileReader
+    Parser <|.. CSVParser
+    ProductProvider <|.. ConcreteProductProvider
+    ConcreteProductProvider o-- Parser
+    ConcreteProductProvider o-- Reader
+    Renderer <|.. ConsoleTableRenderer
+    Renderer <|.. HTMLTableRenderer
+    ConsoleTableRenderer o-- ProductProvider
+    HTMLTableRenderer o-- ProductProvider
+    ProductProvider .. Product
+    Parser .. Product
+
+    class  Product {
+        +long productId
+        +String name
+        +String description
+        +int categoryId
+        +BigDecimal price
+        +int stockQuantity
+        +String imageUrl
+        +Date createdAt
+        +Date updatedAt
+    }
+
+    class  Reader{
+        -String fileName
+        + String read()
+    }
+    <<interface>> Reader
+
+    class ResourceFileReader {
+        + String read()
+    }
+
+    class  Parser{
+        + List[Product] parse(String)
+    }
+    <<interface>> Parser
+
+    class CSVParser {
+        + List[Product] parse(String)
+    }
+
+    class  Renderer{
+        +void render()
+    }
+    <<interface>> Renderer
+
+    class ConsoleTableRenderer {
+        - ProductProvider provider
+        +void render()
+    }
+
+    class HTMLTableRenderer {
+        - ProductProvider provider
+        +void render()
+    }
+
+    class ProductProvider {
+        + List[Product] getProducts()
+    }
+    <<interface>> ProductProvider
+
+    class ConcreteProductProvider{
+        - Reader reader
+        - Parser parser
+       + List[Product] getProducts()
+    }
+
+```
 
 ## Выводы
 Сконфигурировал приложение Spring c помощью аннотаций. Примененил AOП для логирования
