@@ -1,5 +1,10 @@
 plugins {
     id("java")
+    application
+}
+
+application {
+    mainClass.set("ru.bsuedu.cad.lab.Main")
 }
 
 group = "ru.bsuedu.cad.lab"
