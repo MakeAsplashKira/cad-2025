@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS CATEGORIES (
     );
 
 CREATE TABLE IF NOT EXISTS PRODUCTS (
-                                        product_id INT PRIMARY KEY AUTO_INCREMENT,
-                                        name VARCHAR(200) NOT NULL,
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(200) NOT NULL,
     description VARCHAR(1000),
     category_id INT NOT NULL,
     price DECIMAL(10, 2) NOT NULL,

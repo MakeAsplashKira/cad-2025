@@ -1,7 +1,6 @@
 package ru.bsuedu.cad.lab.renderer;
 
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import ru.bsuedu.cad.lab.entity.Category;
 import ru.bsuedu.cad.lab.entity.Product;

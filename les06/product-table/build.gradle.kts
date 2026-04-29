@@ -34,7 +34,7 @@ dependencies {
     // HikariCP
     implementation("com.zaxxer:HikariCP:6.2.1")
 
-    // Logback (логирование)
+    // Logback
     implementation("ch.qos.logback:logback-classic:1.4.14")
 
     // Lombok

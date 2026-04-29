@@ -1,7 +1,6 @@
 package ru.bsuedu.cad.lab.renderer;
 
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import ru.bsuedu.cad.lab.entity.Product;
 import ru.bsuedu.cad.lab.provider.ProductProvider;
