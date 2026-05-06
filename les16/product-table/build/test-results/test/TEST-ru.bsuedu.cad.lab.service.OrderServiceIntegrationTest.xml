@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.bsuedu.cad.lab.service.OrderServiceIntegrationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-05-06T08:21:10.382Z" hostname="KIRA" time="0.87">
+  <properties/>
+  <testcase name="createOrder_successfullyPersisted()" classname="ru.bsuedu.cad.lab.service.OrderServiceIntegrationTest" time="0.784"/>
+  <testcase name="getAllOrders_returnsCreatedOrders()" classname="ru.bsuedu.cad.lab.service.OrderServiceIntegrationTest" time="0.032"/>
+  <testcase name="createOrder_customerNotFound_throwsException()" classname="ru.bsuedu.cad.lab.service.OrderServiceIntegrationTest" time="0.011"/>
+  <testcase name="deleteOrder_removesFromDatabase()" classname="ru.bsuedu.cad.lab.service.OrderServiceIntegrationTest" time="0.017"/>
+  <testcase name="createOrder_productNotFound_throwsException()" classname="ru.bsuedu.cad.lab.service.OrderServiceIntegrationTest" time="0.012"/>
+  <testcase name="updateOrder_changesStatusAndAddress()" classname="ru.bsuedu.cad.lab.service.OrderServiceIntegrationTest" time="0.009"/>
+  <system-out><![CDATA[11:21:09.841 [Test worker] INFO  r.b.cad.lab.service.DataInitializer - Загружено категорий: 10
+11:21:09.922 [Test worker] INFO  r.b.cad.lab.service.DataInitializer - Загружено продуктов: 10
+11:21:09.942 [Test worker] INFO  r.b.cad.lab.service.DataInitializer - Загружено клиентов: 10
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

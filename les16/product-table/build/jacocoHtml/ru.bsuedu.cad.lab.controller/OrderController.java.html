@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">product-table</a> &gt; <a href="index.source.html" class="el_package">ru.bsuedu.cad.lab.controller</a> &gt; <span class="el_source">OrderController.java</span></div><h1>OrderController.java</h1><pre class="source lang-java linenums">package ru.bsuedu.cad.lab.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.bsuedu.cad.lab.service.OrderItemRequest;
+import ru.bsuedu.cad.lab.service.OrderService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+@RequestMapping(&quot;/orders&quot;)
+<span class="nc" id="L16">@RequiredArgsConstructor</span>
+public class OrderController {
+
+    private final OrderService orderService;
+
+    @GetMapping
+    public String listOrders(Model model) {
+<span class="nc" id="L23">        model.addAttribute(&quot;orders&quot;, orderService.getAllOrders());</span>
+<span class="nc" id="L24">        return &quot;orders/list&quot;;</span>
+    }
+
+    @GetMapping(&quot;/new&quot;)
+    public String showCreateForm(Model model) {
+<span class="nc" id="L29">        model.addAttribute(&quot;customers&quot;, orderService.getAllCustomers());</span>
+<span class="nc" id="L30">        model.addAttribute(&quot;products&quot;, orderService.getAllProducts());</span>
+<span class="nc" id="L31">        return &quot;orders/form&quot;;</span>
+    }
+
+    @PostMapping
+    public String createOrder(
+            @RequestParam Long customerId,
+            @RequestParam String shippingAddress,
+            @RequestParam(value = &quot;productIds&quot;, required = false) List&lt;Long&gt; productIds,
+            @RequestParam(value = &quot;quantities&quot;, required = false) List&lt;Integer&gt; quantities,
+            RedirectAttributes redirectAttributes) {
+        try {
+<span class="nc" id="L42">            List&lt;OrderItemRequest&gt; items = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">            if (productIds != null) {</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">                for (int i = 0; i &lt; productIds.size(); i++) {</span>
+<span class="nc" id="L45">                    Long productId = productIds.get(i);</span>
+<span class="nc bnc" id="L46" title="All 4 branches missed.">                    Integer qty = (quantities != null &amp;&amp; i &lt; quantities.size()) ? quantities.get(i) : 1;</span>
+<span class="nc bnc" id="L47" title="All 8 branches missed.">                    if (productId != null &amp;&amp; productId &gt; 0 &amp;&amp; qty != null &amp;&amp; qty &gt; 0) {</span>
+<span class="nc" id="L48">                        items.add(new OrderItemRequest(productId, qty));</span>
+                    }
+                }
+            }
+<span class="nc bnc" id="L52" title="All 2 branches missed.">            if (!items.isEmpty()) {</span>
+<span class="nc" id="L53">                orderService.createOrder(customerId, shippingAddress, items);</span>
+<span class="nc" id="L54">                redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Р—Р°РєР°Р· СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ&quot;);</span>
+            } else {
+<span class="nc" id="L56">                redirectAttributes.addFlashAttribute(&quot;error&quot;, &quot;Р’С‹Р±РµСЂРёС‚Рµ С…РѕС‚СЏ Р±С‹ РѕРґРёРЅ С‚РѕРІР°СЂ&quot;);</span>
+            }
+<span class="nc" id="L58">        } catch (Exception e) {</span>
+<span class="nc" id="L59">            redirectAttributes.addFlashAttribute(&quot;error&quot;, &quot;РћС€РёР±РєР°: &quot; + e.getMessage());</span>
+<span class="nc" id="L60">        }</span>
+<span class="nc" id="L61">        return &quot;redirect:/orders&quot;;</span>
+    }
+
+    @GetMapping(&quot;/{id}/edit&quot;)
+    public String showEditForm(@PathVariable Long id, Model model) {
+<span class="nc" id="L66">        model.addAttribute(&quot;order&quot;, orderService.getOrderById(id));</span>
+<span class="nc" id="L67">        return &quot;orders/edit&quot;;</span>
+    }
+
+    @PostMapping(&quot;/{id}&quot;)
+    public String updateOrder(
+            @PathVariable Long id,
+            @RequestParam String status,
+            @RequestParam String shippingAddress,
+            RedirectAttributes redirectAttributes) {
+        try {
+<span class="nc" id="L77">            orderService.updateOrder(id, status, shippingAddress);</span>
+<span class="nc" id="L78">            redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Р—Р°РєР°Р· РѕР±РЅРѕРІР»С‘РЅ&quot;);</span>
+<span class="nc" id="L79">        } catch (Exception e) {</span>
+<span class="nc" id="L80">            redirectAttributes.addFlashAttribute(&quot;error&quot;, &quot;РћС€РёР±РєР°: &quot; + e.getMessage());</span>
+<span class="nc" id="L81">        }</span>
+<span class="nc" id="L82">        return &quot;redirect:/orders&quot;;</span>
+    }
+
+    @PostMapping(&quot;/{id}/delete&quot;)
+    public String deleteOrder(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+<span class="nc" id="L88">            orderService.deleteOrder(id);</span>
+<span class="nc" id="L89">            redirectAttributes.addFlashAttribute(&quot;success&quot;, &quot;Р—Р°РєР°Р· СѓРґР°Р»С‘РЅ&quot;);</span>
+<span class="nc" id="L90">        } catch (Exception e) {</span>
+<span class="nc" id="L91">            redirectAttributes.addFlashAttribute(&quot;error&quot;, &quot;РћС€РёР±РєР°: &quot; + e.getMessage());</span>
+<span class="nc" id="L92">        }</span>
+<span class="nc" id="L93">        return &quot;redirect:/orders&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

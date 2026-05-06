@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Product.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">product-table</a> &gt; <a href="index.source.html" class="el_package">ru.bsuedu.cad.lab.entity</a> &gt; <span class="el_source">Product.java</span></div><h1>Product.java</h1><pre class="source lang-java linenums">package ru.bsuedu.cad.lab.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = &quot;PRODUCTS&quot;)
+@Getter
+<span class="pc" id="L17">@Setter</span>
+<span class="fc" id="L18">@NoArgsConstructor</span>
+public class Product {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;product_id&quot;)
+<span class="fc" id="L24">    private Long productId;</span>
+
+    @Column(name = &quot;name&quot;, nullable = false, length = 200)
+<span class="nc" id="L27">    private String name;</span>
+
+    @Column(name = &quot;description&quot;, length = 1000)
+<span class="nc" id="L30">    private String description;</span>
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = &quot;category_id&quot;, nullable = false)
+<span class="nc" id="L34">    private Category category;</span>
+
+    @Column(name = &quot;price&quot;, nullable = false, precision = 10, scale = 2)
+<span class="fc" id="L37">    private BigDecimal price;</span>
+
+<span class="fc" id="L39">    @Column(name = &quot;stock_quantity&quot;)</span>
+<span class="pc" id="L40">    private Integer stockQuantity = 0;</span>
+
+    @Column(name = &quot;image_url&quot;, length = 500)
+<span class="nc" id="L43">    private String imageUrl;</span>
+
+<span class="fc" id="L45">    @Column(name = &quot;created_at&quot;)</span>
+<span class="pc" id="L46">    private LocalDateTime createdAt = LocalDateTime.now();</span>
+
+<span class="fc" id="L48">    @Column(name = &quot;updated_at&quot;)</span>
+<span class="pc" id="L49">    private LocalDateTime updatedAt = LocalDateTime.now();</span>
+
+<span class="fc" id="L51">    @JsonIgnore</span>
+    @OneToMany(mappedBy = &quot;product&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+<span class="nc" id="L53">    private List&lt;OrderDetail&gt; orderDetails = new ArrayList&lt;&gt;();</span>
+
+    public Product(String name, String description, Category category, BigDecimal price,
+<span class="fc" id="L56">                   Integer stockQuantity, String imageUrl) {</span>
+<span class="fc" id="L57">        this.name = name;</span>
+<span class="fc" id="L58">        this.description = description;</span>
+<span class="fc" id="L59">        this.category = category;</span>
+<span class="fc" id="L60">        this.price = price;</span>
+<span class="fc" id="L61">        this.stockQuantity = stockQuantity;</span>
+<span class="fc" id="L62">        this.imageUrl = imageUrl;</span>
+<span class="fc" id="L63">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

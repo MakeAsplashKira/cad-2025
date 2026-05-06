@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Customer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">product-table</a> &gt; <a href="index.source.html" class="el_package">ru.bsuedu.cad.lab.entity</a> &gt; <span class="el_source">Customer.java</span></div><h1>Customer.java</h1><pre class="source lang-java linenums">package ru.bsuedu.cad.lab.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = &quot;CUSTOMER&quot;)
+@Getter
+<span class="pc" id="L15">@Setter</span>
+<span class="fc" id="L16">@NoArgsConstructor</span>
+public class Customer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;customer_id&quot;)
+<span class="fc" id="L22">    private Long customerId;</span>
+
+    @Column(name = &quot;name&quot;, nullable = false, length = 100)
+<span class="fc" id="L25">    private String name;</span>
+
+    @Column(name = &quot;email&quot;, nullable = false, unique = true, length = 100)
+<span class="nc" id="L28">    private String email;</span>
+
+    @Column(name = &quot;phone&quot;, length = 20)
+<span class="nc" id="L31">    private String phone;</span>
+
+    @Column(name = &quot;address&quot;, length = 255)
+<span class="nc" id="L34">    private String address;</span>
+
+<span class="fc" id="L36">    @JsonIgnore</span>
+    @OneToMany(mappedBy = &quot;customer&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+<span class="nc" id="L38">    private List&lt;Order&gt; orders = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L40">    public Customer(String name, String email, String phone, String address) {</span>
+<span class="fc" id="L41">        this.name = name;</span>
+<span class="fc" id="L42">        this.email = email;</span>
+<span class="fc" id="L43">        this.phone = phone;</span>
+<span class="fc" id="L44">        this.address = address;</span>
+<span class="fc" id="L45">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
